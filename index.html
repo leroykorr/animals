@@ -53,7 +53,7 @@
 
  /* --- ОБЩИЕ БОКОВЫЕ КНОПКИ --- */
  .side-nav-btn {
- position: fixed; top: 50%; transform: translateY(-50%);
+ position: fixed; transform: translateY(-50%);
  background-color: #e94560; color: white;
  border: none; border-radius: 50%; cursor: pointer; font-weight: bold; 
  box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 100;
@@ -65,6 +65,11 @@
  .btn-prev-side { left: 20px; }
  .btn-next-side { right: 20px; }
  .side-text-btn { font-size: 16px; }
+
+ /* Позиции для кнопок игры Missing */
+ #missing-start-btn { top: 45%; left: 20px; }
+ #missing-skip-btn { top: 65%; left: 20px; font-size: 16px; }
+ #missing-pause-btn { top: 55%; right: 20px; }
 
  /* --- TAB 1 (LEARN) --- */
  #tab1-content { display: none; flex-direction: column; align-items: center; position: relative; min-height: 80vh; justify-content: center; }
@@ -112,6 +117,8 @@
 
  /* --- TAB 4 (WHO IS FASTER) --- */
  #tab4-content { display: none; flex-direction: column; align-items: center; position: relative; min-height: 80vh; justify-content: center; }
+ #faster-start-btn { top: 50%; left: 20px; }
+ #faster-pause-btn { top: 50%; right: 20px; }
  .faster-display {
  background-color: #16213e; border-radius: 15px; width: 100%; max-width: 650px; height: 500px;
  display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -257,12 +264,12 @@
 
  <!-- TAB 1 -->
  <div id="tab1-content">
- <button class="side-nav-btn btn-prev-side" onclick="prevFlashcard()">❮</button>
+ <button class="side-nav-btn btn-prev-side" onclick="prevFlashcard()" style="top: 50%;">❮</button>
  <div class="flashcard">
  <img id="fc-img" class="flashcard-img" src="" alt="">
  <div class="flashcard-text" id="fc-text"></div>
  </div>
- <button class="side-nav-btn btn-next-side" onclick="nextFlashcard()">❯</button>
+ <button class="side-nav-btn btn-next-side" onclick="nextFlashcard()" style="top: 50%;">❯</button>
  </div>
 
  <!-- TAB 2 -->
@@ -280,16 +287,16 @@
 
  <!-- TAB 4 -->
  <div id="tab4-content">
- <button id="faster-start-btn" class="side-nav-btn btn-prev-side side-text-btn" onclick="startFasterGame()">Start</button>
+ <button id="faster-start-btn" class="side-nav-btn side-text-btn" onclick="startFasterGame()">Start</button>
  <div class="faster-display" id="faster-display">
  <h1 style="color: #bdc3c7;">Press Start</h1>
  </div>
- <button id="faster-pause-btn" class="side-nav-btn btn-next-side side-text-btn" onclick="togglePauseFasterGame()" disabled>Pause</button>
+ <button id="faster-pause-btn" class="side-nav-btn side-text-btn" onclick="togglePauseFasterGame()" disabled>Pause</button>
  </div>
 
  <!-- TAB 5 -->
  <div id="tab5-content">
- <button class="side-nav-btn btn-prev-side" onclick="prevBuilderWord()">❮</button>
+ <button class="side-nav-btn btn-prev-side" onclick="prevBuilderWord()" style="top: 50%;">❮</button>
  <div class="builder-container">
  <div class="image-container">
  <div class="checkmark" id="builder-checkmark"> </div>
@@ -298,21 +305,27 @@
  <div class="slots-container" id="builder-slots"></div>
  <div class="letters-pool" id="builder-letters"></div>
  </div>
- <button class="side-nav-btn btn-next-side" onclick="nextBuilderWord()">❯</button>
+ <button class="side-nav-btn btn-next-side" onclick="nextBuilderWord()" style="top: 50%;">❯</button>
  </div>
 
  <!-- TAB 6 -->
  <div id="tab6-content">
- <button id="missing-start-btn" class="side-nav-btn btn-prev-side side-text-btn" onclick="startMissingGame()" style="font-size: 18px; font-weight: bold;">Start</button>
+ <!-- Новая кнопка Start (слева сверху) -->
+ <button id="missing-start-btn" class="side-nav-btn side-text-btn" onclick="startMissingGame()">Start</button>
+ <!-- Новая кнопка Skip (слева снизу) -->
+ <button id="missing-skip-btn" class="side-nav-btn side-text-btn" onclick="skipMissingGame()">Skip</button>
+ 
  <div class="missing-display" id="missing-display">
  <h1 style="color: #bdc3c7;">Press Start</h1>
  </div>
- <button id="missing-pause-btn" class="side-nav-btn btn-next-side" onclick="togglePauseMissingGame()" disabled style="font-size: 25px;"> </button>
+ 
+ <!-- Кнопка Pause (справа по центру) -->
+ <button id="missing-pause-btn" class="side-nav-btn" onclick="togglePauseMissingGame()" disabled style="font-size: 25px;"> </button>
  </div>
 
  <!-- TAB 7 -->
  <div id="tab7-content">
- <button class="side-nav-btn btn-prev-side" onclick="prevQuizWord()">❮</button>
+ <button class="side-nav-btn btn-prev-side" onclick="prevQuizWord()" style="top: 50%;">❮</button>
  <div class="quiz-container">
  <div class="quiz-image-container">
  <img id="quiz-image" src="" alt="Word Image">
@@ -320,7 +333,7 @@
  <div class="quiz-slots-container" id="quiz-slots"></div>
  <input type="text" id="hidden-input" class="hidden-input" autocomplete="off">
  </div>
- <button class="side-nav-btn btn-next-side" onclick="nextQuizWord()">❯</button>
+ <button class="side-nav-btn btn-next-side" onclick="nextQuizWord()" style="top: 50%;">❯</button>
  </div>
 
  <script>
@@ -333,7 +346,7 @@
  if (!menu.contains(event.target)) menu.classList.remove('open');
  });
 
- // БАЗА ДАННЫХ ЖИВОТНЫХ (с твоими названиями файлов)
+ // БАЗА ДАННЫХ ЖИВОТНЫХ
  const allColors = [
  { name: "BEAR", img: "Bear.png" },
  { name: "CAT", img: "Cat.png" },
@@ -343,7 +356,7 @@
  { name: "PIG", img: "Pig.png" },
  { name: "CHEETAH", img: "Cheetah.png" },
  { name: "RAT", img: "Rat.png" },
- { name: "CAPYBARA", img: "Capybara .png" }, // Строго как на скриншоте (с пробелом)
+ { name: "CAPYBARA", img: "Capybara .png" }, 
  { name: "KANGAROO", img: "Kangaroo.png" },
  { name: "ELEPHANT", img: "Elephant.png" },
  { name: "WOLF", img: "Wolf.png" },
@@ -373,6 +386,8 @@
  
  let missingRunning = false;
  let missingPaused = false;
+ let canSkipMissing = false; 
+ let skipRequested = false;
  
  let quizIndex = 0;
  let currentQuizWord = "";
@@ -701,10 +716,19 @@
  async function missingSleep(ms) {
  const start = Date.now();
  while (Date.now() - start < ms) {
+ if (skipRequested) break; // Если нажали Skip, прерываем ожидание!
  if (!missingPaused) await new Promise(r => setTimeout(r, 50));
  else await new Promise(r => setTimeout(r, 100));
  }
- while (missingPaused && missingRunning) await new Promise(r => setTimeout(r, 100));
+ while (missingPaused && missingRunning && !skipRequested) await new Promise(r => setTimeout(r, 100));
+ skipRequested = false; // Сбрасываем флаг после завершения
+ }
+
+ function skipMissingGame() {
+ // Скип работает ТОЛЬКО когда висят карточки для запоминания
+ if (canSkipMissing && missingRunning) {
+ skipRequested = true;
+ }
  }
 
  async function startMissingGame() {
@@ -714,6 +738,9 @@
  }
  missingRunning = true;
  missingPaused = false;
+ canSkipMissing = false;
+ skipRequested = false;
+ 
  const display = document.getElementById('missing-display');
  const startBtn = document.getElementById('missing-start-btn');
  const pauseBtn = document.getElementById('missing-pause-btn');
@@ -725,12 +752,15 @@
  let roundCards = shuffle(selectedColors);
  let missingIndex = Math.floor(Math.random() * roundCards.length);
 
+ // 1. Отсчет 3-2-1 (тут Скип не работает)
  for (let i = 3; i > 0; i--) {
  if(!missingRunning) return;
  display.innerHTML = `<h1 class="countdown-text">${i}</h1>`;
  await missingSleep(1000);
  }
 
+ // 2. Показ карточек (ТУТ РАБОТАЕТ СКИП)
+ canSkipMissing = true; 
  const showTime = (3 + roundCards.length) * 1000;
  display.innerHTML = `<div class="missing-grid" id="missing-grid"></div>`;
  const grid = document.getElementById('missing-grid');
@@ -743,12 +773,15 @@
  });
 
  await missingSleep(showTime);
+ canSkipMissing = false; // Выключаем скип после исчезновения
  if(!missingRunning) return;
 
+ // 3. Вопрос
  display.innerHTML = `<h1 class="question-text">What's missing?</h1>`;
  await missingSleep(1000);
  if(!missingRunning) return;
 
+ // 4. Появление с пропуском
  let newOrder = shuffle(roundCards);
  display.innerHTML = `<div class="missing-grid" id="missing-grid"></div>`;
  const newGrid = document.getElementById('missing-grid');
@@ -765,6 +798,7 @@
  newGrid.appendChild(card);
  });
 
+ // 5. Ждем и показываем ответ
  await missingSleep(3000);
  if(!missingRunning) return;
  
@@ -787,6 +821,8 @@
  function stopMissingGame() {
  missingRunning = false;
  missingPaused = false;
+ canSkipMissing = false;
+ skipRequested = false;
  document.getElementById('missing-start-btn').disabled = false;
  document.getElementById('missing-start-btn').innerText = 'Start';
  document.getElementById('missing-pause-btn').disabled = true;
